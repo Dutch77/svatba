@@ -3,9 +3,9 @@
         "outDir": "./built/",
         "sourceMap": true,
         "strict": true,
-        "module": "es2015",
+        "module": "commonjs",
         "moduleResolution": "node",
-        "target": "es5",
+        "target": "es2017",
         "experimentalDecorators": true
     },
     "include": [
