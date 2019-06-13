@@ -357,7 +357,7 @@ To leverage that within `.vue` files, we recommend using [Visual Studio Code](ht
 Now, let's write an SFC!
 
 ```html
-<!-- src/components/Hello.vue -->
+AppTemplate.vue
 
 <template>
     <div>
