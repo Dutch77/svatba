@@ -15,9 +15,6 @@
         mounted: function () {
         },
         computed: {
-            exclamationMarks(): string {
-                return 'test'
-            }
         }
     });
 </script>

@@ -7,14 +7,13 @@ import {InvalidCodeError} from "../errors/InvalidCodeError";
 
 export default new Vuex.Store({
     state: {
-        userProfile: {} as UserProfile,
-        incrementMe: 0 as number
+        userProfile: {} as UserProfile
     },
     mutations: {
         saveUserProfile(state, userProfile: UserProfile) {
             // state.userProfile = userProfile
-            // Vue.set(state, 'userProfile', userProfile)
-            state.userProfile = {...userProfile}
+            Vue.set(state, 'userProfile', userProfile)
+            // state.userProfile = {...userProfile}
         }
     },
     actions: {
