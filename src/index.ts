@@ -5,15 +5,15 @@ import 'es6-promise/auto'
 import Store from "./store/store";
 declare function require(name:string): any;
 Vue.use(require('vue-event-bus'))
-import AppTemplate from "./components/AppTemplate.vue";
+import App from "./components/App.vue";
 
-Vue.component('app-template', require('./components/AppTemplate.vue'));
+// Vue.component('app', require('./components/App.vue'));
 
 let v = new Vue({
     el: "#app",
     store: Store,
     components: {
-        'app-template': AppTemplate
+        'App': App
     },
-    template: `<app-template></app-template>`
+    template: `<App></App>`
 });

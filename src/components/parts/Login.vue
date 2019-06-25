@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <input type="text" value="" v-model="code"/>
+        <input type="text" v-model="code"/>
         <button v-on:click="login(code)">Vstoupit</button>
         <div class="error" v-html="error" v-if="error"></div>
     </div>
@@ -8,8 +8,8 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import {AxiosError} from "axios";
-    import {LoginPayload} from "../../interfaces";
+    import {LoginPayload, UserProfile} from "../../interfaces";
+    import {InvalidCodeError} from "../../errors/InvalidCodeError";
 
     export default Vue.extend({
         data() {
@@ -22,15 +22,15 @@
             login(code: string) {
                 let payload: LoginPayload = {code: code};
                 return this.$store.dispatch('login', payload)
-                    .catch((e: AxiosError) => {
-                        this.error = 'Zadaný kód neexistuje'
+                    .then((userProfile: UserProfile) => {
+                        this.error = ''
+                    })
+                    .catch((e: InvalidCodeError) => {
+                        this.error = e.message
                     })
             }
         },
         mounted: function () {
-        },
-        computed: {
-
         }
     });
 </script>

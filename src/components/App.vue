@@ -1,7 +1,7 @@
 <template>
     <div>
-<!--        <Login v-if="isLoggedIn"/>-->
-<!--        <Header v-else/>-->
+        <Header v-if="isLoggedIn" />
+        <Login v-else />
     </div>
 </template>
 
@@ -21,8 +21,8 @@
         },
         methods: {},
         computed: {
-            isLoggedIn(): boolean {
-                return this.$store.getters['isLoggedIn']
+            isLoggedIn: function () {
+                return this.$store.getters.isLoggedIn
             }
         }
     });

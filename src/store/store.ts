@@ -1,32 +1,45 @@
 import Vue from 'Vue'
-import Vuex, {ActionContext} from 'Vuex'
-
+import Vuex from 'Vuex'
 Vue.use(Vuex);
 import {LoginPayload, UserProfile} from "../interfaces";
-import {isNull} from 'underscore'
+import {isEmpty} from 'underscore'
+import {InvalidCodeError} from "../errors/InvalidCodeError";
 
 export default new Vuex.Store({
     state: {
-        userProfile: null as UserProfile | null
+        userProfile: {} as UserProfile,
+        incrementMe: 0 as number
+    },
+    mutations: {
+        saveUserProfile(state, userProfile: UserProfile) {
+            // state.userProfile = userProfile
+            // Vue.set(state, 'userProfile', userProfile)
+            state.userProfile = {...userProfile}
+        }
     },
     actions: {
-        async login(context, payload: LoginPayload) {
-            context.state.userProfile = await this.dispatch('getUserProfile', payload)
+        async login({dispatch, commit}, payload: LoginPayload): Promise<UserProfile> {
+            let userProfile = await dispatch('getUserProfile', payload)
+            commit('saveUserProfile', userProfile)
+            return userProfile
         },
         async getUserProfile(context, payload: LoginPayload): Promise<UserProfile> {
-            return {
-                firstName: 'test',
-                lastName: 'testovič',
-                foodType: 0,
-                isPlusOne: false,
-                plusOneId: null
+            if (payload.code === '666') {
+                return {
+                    firstName: 'test',
+                    lastName: 'testovič',
+                    foodType: 0,
+                    isPlusOne: false,
+                    plusOneId: null
+                }
             }
+            throw new InvalidCodeError(payload.code)
         }
 
     },
     getters: {
-        loggedIn: (state, getters) => {
-            return isNull(state.userProfile)
+        isLoggedIn: (state) => {
+            return !isEmpty(state.userProfile)
         }
     }
 })
